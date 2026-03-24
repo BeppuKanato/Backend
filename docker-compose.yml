@@ -1,0 +1,12 @@
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+  app:
+    build: 
+      context: ./app
+    expose:
+      - "8000"
