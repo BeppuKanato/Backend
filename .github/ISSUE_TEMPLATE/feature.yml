@@ -1,0 +1,32 @@
+name: Feature
+description: 新機能の追加
+title: "feat: "
+labels: []
+
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 🎯 概要
+      description: 追加したい機能を記載してください
+    validations:
+      required: true
+
+  - type: textarea
+    id: requirements
+    attributes:
+      label: ✅ 要件
+      description: |
+        - [ ] 
+        - [ ] 
+        - [ ] 
+    validations:
+      required: true
+
+  - type: textarea
+    id: memo
+    attributes:
+      label: 🛠 実装メモ
+      description: 必要に応じて記載してください
+    validations:
+      required: false
