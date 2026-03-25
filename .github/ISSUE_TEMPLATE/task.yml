@@ -1,0 +1,32 @@
+name: Task
+description: 作業タスク
+title: "chore: "
+labels: []
+
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: 📝 タスク内容
+      description: 実施するタスクを記載してください
+    validations:
+      required: true
+
+  - type: textarea
+    id: purpose
+    attributes:
+      label: 🎯 目的
+      description: このタスクの目的を記載してください
+    validations:
+      required: true
+
+  - type: textarea
+    id: work
+    attributes:
+      label: 📋 作業内容
+      description: |
+        - [ ] 
+        - [ ] 
+        - [ ] 
+    validations:
+      required: true
