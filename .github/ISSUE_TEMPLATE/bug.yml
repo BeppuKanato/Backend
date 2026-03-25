@@ -1,0 +1,40 @@
+name: Bug
+description: バグ報告
+title: "fix: "
+labels: []
+
+body:
+  - type: textarea
+    id: bug
+    attributes:
+      label: 🐛 バグ内容
+      description: どのような問題が発生しているか記載してください
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 🔁 再現手順
+      description: |
+        1. 手順1
+        2. 手順2
+        3. 手順3
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 🎯 期待される動作
+      description: 本来どうなるべきか記載してください
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: 📸 スクリーンショット（必要に応じて）
+      description: 必要であれば画像やログを貼り付けてください
+    validations:
+      required: false
