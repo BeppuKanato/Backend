@@ -10,6 +10,17 @@ jobs:
   backend-check:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: test_db
+          MYSQL_USER: test_user
+          MYSQL_PASSWORD: test_password
+          MYSQL_ROOT_PASSWORD: root_password
+        ports:
+          - 3306:3306
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -24,6 +35,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r app/requirements.txt
           pip install ruff black
+          sudo apt-get update
+          sudo apt-get install -y default-mysql-client
+      
+      - name: Wait for MySQL
+        run: |
+          until mysqladmin ping -h 127.0.0.1 -p 3306 -u test_user -ptest_password --silent; do 
+            echo "Waiting for MySQL..." 
+            sleep 2
+          done
 
       - name: Run ruff
         run: ruff check app
@@ -37,6 +57,11 @@ jobs:
           SECRET_KEY: dummy-secret-key
           DEBUG: "False"
           ALLOWED_HOSTS: localhost,127.0.0.1
+          DB_NAME: test_db
+          DB_USER: test_user
+          DB_PASSWORD: test_password
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
         run: |
           python manage.py check
       
@@ -46,5 +71,10 @@ jobs:
           SECRET_KEY: dummy-secret-key
           DEBUG: "False"
           ALLOWED_HOSTS: localhost,127.0.0.1
+          DB_NAME: test_db
+          DB_USER: test_user
+          DB_PASSWORD: test_password
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
         run: |
           python manage.py test
