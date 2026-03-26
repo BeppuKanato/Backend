@@ -78,3 +78,9 @@ jobs:
           DB_PORT: 3306
         run: |
           python manage.py test
+      
+      - name: Build Docker (prod)
+        run: docker compose -f docker-compose.yml -f docker-compose.prod.yml build
+
+      - name: Build Docker (dev)
+         run: docker compose -f docker-compose.yml -f docker-compose.dev.yml build
