@@ -125,12 +125,19 @@ DB_PORT=3306
 
 ---
 
+## 🐋 Dockerの起動
+
+以下のコマンドでEC2のdockerを起動します。
+
+```bash
+sudo systemctl start docker
+```
 ## 🚀 コンテナの起動
 
 以下のコマンドでアプリケーションを起動します。
 
 ```bash
-docker compose --env-file .env.prod -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+sudo docker compose --env-file .env.prod -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 ```
 
 ---
