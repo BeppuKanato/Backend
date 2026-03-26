@@ -6,7 +6,5 @@ services:
     ports:
       - "80:80"
   app:
-    build: 
-      context: ./app
     expose:
       - "8000"
