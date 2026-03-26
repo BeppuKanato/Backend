@@ -78,9 +78,14 @@ jobs:
           DB_PORT: 3306
         run: |
           python manage.py test
+        
+      - name: Create dummy env files
+        run: |
+          touch .env.prod
+          touch .env.dev
       
       - name: Build Docker (prod)
         run: docker compose -f docker-compose.yml -f docker-compose.prod.yml build
 
       - name: Build Docker (dev)
-         run: docker compose -f docker-compose.yml -f docker-compose.dev.yml build
+        run: docker compose -f docker-compose.yml -f docker-compose.dev.yml build
