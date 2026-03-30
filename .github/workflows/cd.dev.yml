@@ -1,0 +1,24 @@
+name: CD(Development)
+
+on:
+    push:
+        branches:
+            - develop
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Deploy to Development EC2
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                host: ${{ secrets.DEV_EC2_HOST}}
+                username: ${{ secrets.DEV_EC2_USER}}
+                key: ${{ secrets.DEV_EC2_KEY}}
+                script: |
+                  cd Backend
+                  git pull origin develop
+                  docker compose --env-file .env.dev -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+
+                
