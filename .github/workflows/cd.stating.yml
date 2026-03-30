@@ -1,0 +1,21 @@
+name: CD(Staging)
+
+on:
+  push:
+    branches:
+      - "release/*"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Staging EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.STG_EC2_HOST }}
+          username: ${{ secrets.STG_EC2_USER }}
+          key: ${{ secrets.STG_EC2_KEY }}
+          script: |
+            cd Backend
+            git pull origin $(git rev-parse --abbrev-ref HEAD)
+            docker compose --env-file .env.prod -f docker-compose.yml -f docker-compose.prod.yml up -d --build
