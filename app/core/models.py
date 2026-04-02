@@ -24,7 +24,7 @@ class Token(models.Model):
         User,
         on_delete=models.CASCADE,
         db_column="user_id",
-        related_name="tokens"
+        related_name="tokens",
     )
     token = models.CharField(max_length=64, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
