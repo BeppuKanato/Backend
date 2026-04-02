@@ -1,0 +1,31 @@
+@startuml
+title 初回起動時のユーザ作成シーケンス
+
+participant "SecureStore" as SecureStore
+database "SQLite" as SQLite
+participant "クライアントアプリ" as Client
+participant "バックエンド" as Backend
+database "MySQL" as MySQL
+
+Client -> SQLite : 保存済みuserIdの有無を確認
+SQLite --> Client : userId未保存
+
+Client -> SecureStore : 保存済みaccessTokenの有無を確認
+SecureStore --> Client : accessToken未保存
+
+Client -> Backend : ユーザ作成APIを呼び出す
+
+activate Backend
+Backend -> Backend : userIdとaccessTokenを発行
+Backend -> MySQL : ユーザレコードを作成
+MySQL --> Backend : ユーザ作成完了
+Backend --> Client : userIdとaccessTokenを返却
+deactivate Backend
+
+Client -> SQLite : userIdを保存
+SQLite --> Client : userId保存完了
+
+Client -> SecureStore : accessTokenを保存
+SecureStore --> Client : accessToken保存完了
+
+@enduml
