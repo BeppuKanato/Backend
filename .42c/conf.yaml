@@ -1,0 +1,3 @@
+apis:
+  docs/openapi.yml:
+    alias: social-game-api

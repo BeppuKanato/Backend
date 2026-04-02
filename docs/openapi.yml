@@ -1,0 +1,78 @@
+openapi: 3.0.3
+info:
+  title: Social Game API
+  version: 1.0.0
+
+paths:
+  /users/registration:
+    post:
+      summary: ユーザを新規作成する
+      description: アプリ初回起動時にユーザを作成し、認証情報を返却する
+      tags:
+        - Users
+      
+      responses:
+        '201':
+          description: ユーザ作成成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRegistrationResponse'
+        
+        '400':
+          description: リクエスト不正
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                errorCode: REQUEST-001
+                message: Invalid request
+        
+        '500':
+          description: サーバー内部エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                errorCode: SERVER-001
+                message: Internal server error
+
+        '503':
+          description: サービス一時利用不可
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                errorCode: SERVER-002
+                message: Service unavailable
+
+components:
+  schemas:
+
+    UserRegistrationResponse:
+      type: object
+      required:
+        - userId
+        - accessToken
+      properties:
+        userId:
+          type: string
+          description: ユーザID
+        accessToken:
+          type: string
+          description: 認証トークン
+    ErrorResponse:
+      type: object
+      required:
+        - errorCode
+        - message
+      properties:
+        errorCode:
+          type: string
+          description: エラーコード(例： AUTH-001)
+        message:
+          type: string
+          description: エラーメッセージ
