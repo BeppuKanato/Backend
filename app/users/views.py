@@ -41,6 +41,7 @@ class UserRegistrationView(View):
             }, status=201)
 
         except Exception as e:
+            print(f"Error during user registration: {e}")
             return JsonResponse({
                 "errorCode": "SERVER-001",
                 "message": "Internal server error"
