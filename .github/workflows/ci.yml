@@ -65,6 +65,13 @@ jobs:
         run: |
           python manage.py check
       
+      - name: Grant MySQL privileges for tests
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -u root -proot_password -e "
+            GRANT ALL PRIVILEGES ON *.* TO 'test_user'@'%'; 
+            FLUSH PRIVILEGES; 
+          "
+      
       - name: Run tests
         working-directory: app
         env:
