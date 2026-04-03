@@ -13,10 +13,11 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'users'
-    
+        db_table = "users"
+
     def __str__(self) -> str:
         return self.user_id
+
 
 class Token(models.Model):
     token_id = models.BigAutoField(primary_key=True)
@@ -32,6 +33,6 @@ class Token(models.Model):
 
     class Meta:
         db_table = "tokens"
-    
+
     def __str__(self) -> str:
         return self.token[:10]

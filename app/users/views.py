@@ -6,9 +6,11 @@ from django.db import transaction
 from django.http import JsonResponse
 from django.utils import timezone
 from django.views import View
+
 # from django.shortcuts import render
 
 from .models import User, Token
+
 
 class UserRegistrationView(View):
     def post(self, request):
@@ -18,7 +20,7 @@ class UserRegistrationView(View):
             # 64文字
             access_token = secrets.token_hex(32)
             expired_at = timezone.now() + timedelta(days=expire_date)
-            
+
             with transaction.atomic():
                 user = User.objects.create(
                     user_id=new_user_id,
@@ -34,15 +36,14 @@ class UserRegistrationView(View):
                     token=access_token,
                     expired_at=expired_at,
                 )
-            
-            return JsonResponse({
-                "userId": user.user_id,
-                "accessToken": access_token
-            }, status=201)
+
+            return JsonResponse(
+                {"userId": user.user_id, "accessToken": access_token}, status=201
+            )
 
         except Exception as e:
             print(f"Error during user registration: {e}")
-            return JsonResponse({
-                "errorCode": "SERVER-001",
-                "message": "Internal server error"
-            }, status=500)
+            return JsonResponse(
+                {"errorCode": "SERVER-001", "message": "Internal server error"},
+                status=500,
+            )
