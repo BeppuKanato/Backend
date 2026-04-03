@@ -19,16 +19,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserRegistrationResponse'
         
-        '400':
-          description: リクエスト不正
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              example:
-                errorCode: REQUEST-001
-                message: Invalid request
-        
         '500':
           description: サーバー内部エラー
           content:
