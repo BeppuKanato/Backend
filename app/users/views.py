@@ -6,7 +6,7 @@ from django.db import transaction
 from django.http import JsonResponse
 from django.utils import timezone
 from django.views import View
-from django.shortcuts import render
+# from django.shortcuts import render
 
 from .models import User, Token
 
